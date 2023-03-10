@@ -1,20 +1,17 @@
 import React, { PropsWithChildren } from 'react';
-import { MainNavProps } from '../../navigators';
 import { Text } from 'react-native';
 
+import { MainNavProps } from '../../navigators';
 import Fragment from '../../components/Fragment';
-import { useGetAllKinds, useGetAllKindsInfinite } from '../../api/kind/kind';
 import { useUserStore } from '../../store';
-import { useIsFocused } from '@react-navigation/native';
-import { setAccessToken } from '../../../axios-instance';
-import Btn from '../../components/Btn';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import asyncStorageKeys from '../../constants/asyncStorageKeys';
+import { useGetAllKinds } from '../../api/kind/kind';
+import useRefreshOnFocus from '../../hooks/useRefreshOnFocus';
 
 const Home: React.FC<PropsWithChildren<MainNavProps<'Home'>>> = ({ navigation }) => {
-  const isFocused = useIsFocused();
   const { accessToken } = useUserStore();
-  const { isLoading, data, error, refetch } = useGetAllKinds({ query: { enabled: Boolean(accessToken && isFocused) } });
+  const { isLoading, data, error, refetch } = useGetAllKinds({ query: { enabled: Boolean(accessToken) } });
+
+  useRefreshOnFocus(refetch); // focus될때마다 쿼리 불로오고 싶은 경우 이런식으로 사용함
 
   if (!isLoading) console.log(data);
   if (error) console.log(error);

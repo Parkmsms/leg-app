@@ -18,6 +18,12 @@ const App: React.FC = () => {
   const { getItem: getRefreshToken, setItem: setRefreshToken } = useAsyncStorage(asyncStorageKeys.refreshToken);
   const [loading, setLoading] = useState(true);
 
+  if (__DEV__) {
+    import('react-query-native-devtools').then(({ addPlugin }) => {
+      addPlugin({ queryClient });
+    });
+  }
+
   useEffect(() => {
     (async () => {
       // refresh토큰이 없으므로 임시값 설정
