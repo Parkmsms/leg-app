@@ -16,11 +16,14 @@ module.exports = {
     {
       files: ['*.ts', '*.tsx'],
       rules: {
+        avoidEscape: true,
+        allowTemplateLiterals: true,
         '@typescript-eslint/no-shadow': ['error'],
         'no-shadow': 'off',
         'no-undef': 'off',
         'no-unused-vars': 'off',
         '@typescript-eslint/no-unused-vars': 'off',
+        '@typescript-eslint/ban-ts-comment': 'off',
         'react-hooks/exhaustive-deps': 'off',
         curly: ['error', 'multi-line'],
         'react/no-unstable-nested-components': 'off',

@@ -12,9 +12,7 @@ const RootNav: React.FC<PropsWithChildren> = () => {
   const initialRouteName = userStore.accessToken ? 'Main' : 'Auth';
 
   return (
-    <Stack.Navigator
-      initialRouteName={initialRouteName}
-      screenOptions={{ headerShown: false }}>
+    <Stack.Navigator initialRouteName={initialRouteName} screenOptions={{ headerShown: false }}>
       <Stack.Screen name="Auth" component={AuthNav} />
       <Stack.Screen name="Main" component={MainNav} />
     </Stack.Navigator>

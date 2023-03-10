@@ -5,7 +5,7 @@ import { TabBarProps } from './MainParamList';
 import { useNavigatorStore } from '../../store';
 import { twMerge } from 'tailwind-merge';
 
-const TabBar: React.FC<TabBarProps> = ({ state, navigation }) => {
+const BottomTabBar: React.FC<TabBarProps> = ({ state, navigation }) => {
   const { tabBarDisplay, setTabBarThemeBackground } = useNavigatorStore();
   const containerClassName = twMerge(
     'flex-row justify-around items-center h-[86px] pb-[12px] rounded-t-3xl bg-white',
@@ -29,7 +29,7 @@ const TabBar: React.FC<TabBarProps> = ({ state, navigation }) => {
   );
 };
 
-export default TabBar;
+export default BottomTabBar;
 
 const shadowStyle = {
   backgroundColor: 'white',

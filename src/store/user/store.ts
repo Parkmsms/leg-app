@@ -6,5 +6,7 @@ type User = {
 };
 
 export type Store = User & {
-  setUser: (user: User) => void;
+  setUser: (user: User) => Promise<void>; // 임시
+  login: (accessToken: string, refreshToken: string) => Promise<void>;
+  logout: () => Promise<void>;
 };
