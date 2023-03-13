@@ -13,6 +13,7 @@ import type {
   UseInfiniteQueryResult,
   QueryKey,
 } from '@tanstack/react-query';
+import type { GetAllKinds200Item } from '.././types';
 import { axiosInstance } from '../../../axios-instance';
 import type { ErrorType } from '../../../axios-instance';
 
@@ -20,7 +21,7 @@ import type { ErrorType } from '../../../axios-instance';
  * @summary 음식 종류 리스트 반환
  */
 export const getAllKinds = (signal?: AbortSignal) => {
-  return axiosInstance<string[]>({ url: `/kinds`, method: 'get', signal });
+  return axiosInstance<GetAllKinds200Item[]>({ url: `/kinds`, method: 'get', signal });
 };
 
 export const getGetAllKindsQueryKey = () => [`/kinds`];

@@ -4,8 +4,24 @@
  * Leg User API
  * OpenAPI spec version: 1.0.0
  */
-import type { PostCursorReq } from './postCursorReq';
+import type { GetPostsFoodType } from './getPostsFoodType';
+import type { GetPostsSort } from './getPostsSort';
 
 export type GetPostsParams = {
-  reqDto?: PostCursorReq;
+  /**
+   * 기본값 : 빈문자열
+   */
+  search?: string;
+  /**
+   * 기본값 : 전체
+   */
+  foodType?: GetPostsFoodType;
+  /**
+   * 기본값 : DISTANCE
+   */
+  sort?: GetPostsSort;
+  /**
+   * 기본값 : 0
+   */
+  lastId?: number;
 };

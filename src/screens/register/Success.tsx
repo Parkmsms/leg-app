@@ -6,7 +6,7 @@ import Btn from '../../components/Btn';
 
 const Success: React.FC<PropsWithChildren<RegisterNavProps<'Success'>>> = ({ navigation }) => {
   return (
-    <Fragment>
+    <Fragment className="px-5">
       <View className="flex-1 justify-between">
         <View>
           <Text className="mt-[40px] font-suit-700 text-[30px] text-black leading-[40px]">OOOOOO님,</Text>

@@ -4,8 +4,8 @@
  * Leg User API
  * OpenAPI spec version: 1.0.0
  */
-import type { Coordinate } from './coordinate';
 
 export type GetBetweenDistanceParams = {
-  coordinate: Coordinate;
+  lng: number;
+  lat: number;
 };

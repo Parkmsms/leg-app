@@ -8,6 +8,7 @@ import asyncStorageKeys from './src/constants/asyncStorageKeys';
 import { ActivityIndicator, Text, View } from 'react-native';
 import sleep from './src/functions/sleep';
 import Fragment from './src/components/Fragment';
+import Loading from './src/components/Loading';
 
 const queryClient = new QueryClient();
 
@@ -19,9 +20,7 @@ const App: React.FC = () => {
   const [loading, setLoading] = useState(true);
 
   if (__DEV__) {
-    import('react-query-native-devtools').then(({ addPlugin }) => {
-      addPlugin({ queryClient });
-    });
+    import('react-query-native-devtools').then(({ addPlugin }) => addPlugin({ queryClient }));
   }
 
   useEffect(() => {
@@ -44,13 +43,7 @@ const App: React.FC = () => {
   if (loading) {
     // default 스플래시 시크린 삭제
     // return 스플래시 스크린으로 바꿔주기
-    return (
-      <Fragment>
-        <View className="flex-1 items-center justify-center">
-          <Text>스플래쉬</Text>
-        </View>
-      </Fragment>
-    );
+    return <Loading />;
   }
 
   return (

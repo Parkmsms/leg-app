@@ -4,10 +4,10 @@
  * Leg User API
  * OpenAPI spec version: 1.0.0
  */
-import type { Coordinate } from './coordinate';
 import type { ZoneCursorReq } from './zoneCursorReq';
 
 export type GetNearlyZonesParams = {
-  coordinate: Coordinate;
+  lng: number;
+  lat: number;
   reqDto?: ZoneCursorReq;
 };

@@ -7,7 +7,7 @@ import Btn from '../../components/Btn';
 
 const AuthHome: React.FC<PropsWithChildren<AuthNavProps<'AuthHome'>>> = ({ navigation }) => {
   return (
-    <Fragment backgroundColor={colors.SIGNATURE}>
+    <Fragment className="bg-signature">
       <View className="flex-1 w-full items-center justify-center">
         <View className="w-full items-center mt-10">
           <Image source={require('../../assets/images/logo-white.png')} className="w-[252px] h-[56px]" />

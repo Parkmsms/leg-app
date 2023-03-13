@@ -4,8 +4,10 @@
  * Leg User API
  * OpenAPI spec version: 1.0.0
  */
-import type { OrderCursorReq } from './orderCursorReq';
 
 export type GetOffOrdersByUserParams = {
-  reqDto: OrderCursorReq;
+  /**
+   * 기본값 : 0
+   */
+  lastId?: number;
 };

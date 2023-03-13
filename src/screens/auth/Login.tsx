@@ -15,7 +15,7 @@ const Login: React.FC<PropsWithChildren<AuthNavProps<'Login'>>> = ({ navigation 
   const { getItem } = useAsyncStorage(asyncStorageKeys.accessToken);
 
   return (
-    <Fragment>
+    <Fragment className="px-5">
       <Btn
         title="임시 로그인"
         onPress={async () => {

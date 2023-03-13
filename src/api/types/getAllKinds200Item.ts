@@ -5,10 +5,10 @@
  * OpenAPI spec version: 1.0.0
  */
 
-export type StoreJoinReqFoodTypesItem = (typeof StoreJoinReqFoodTypesItem)[keyof typeof StoreJoinReqFoodTypesItem];
+export type GetAllKinds200Item = (typeof GetAllKinds200Item)[keyof typeof GetAllKinds200Item];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
-export const StoreJoinReqFoodTypesItem = {
+export const GetAllKinds200Item = {
   치킨: '치킨',
   분식: '분식',
   한식: '한식',

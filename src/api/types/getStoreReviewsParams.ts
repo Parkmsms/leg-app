@@ -4,8 +4,20 @@
  * Leg User API
  * OpenAPI spec version: 1.0.0
  */
-import type { ReviewCursorReq } from './reviewCursorReq';
+import type { GetStoreReviewsSort } from './getStoreReviewsSort';
 
 export type GetStoreReviewsParams = {
-  cursorReq: ReviewCursorReq;
+  storeId: number;
+  /**
+   * 기본값 : NEWER
+   */
+  sort?: GetStoreReviewsSort;
+  /**
+   * 기본값 : false
+   */
+  hasImage?: boolean;
+  /**
+   * 기본값 : 0
+   */
+  lastId?: number;
 };

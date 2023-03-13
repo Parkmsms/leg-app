@@ -6,5 +6,8 @@
  */
 
 export type GetEventListParams = {
+  /**
+   * 기본값 : 0
+   */
   lastId?: number;
 };

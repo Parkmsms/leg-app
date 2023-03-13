@@ -195,11 +195,11 @@ export const useGetOrderSimple = <TData = Awaited<ReturnType<typeof getOrderSimp
 /**
  * @summary 유저 포인트 적립,사용 내역 조회
  */
-export const getPointHistory = (params: GetPointHistoryParams, signal?: AbortSignal) => {
+export const getPointHistory = (params?: GetPointHistoryParams, signal?: AbortSignal) => {
   return axiosInstance<CursorPointHistory>({ url: `/orders/points`, method: 'get', params, signal });
 };
 
-export const getGetPointHistoryQueryKey = (params: GetPointHistoryParams) => [
+export const getGetPointHistoryQueryKey = (params?: GetPointHistoryParams) => [
   `/orders/points`,
   ...(params ? [params] : []),
 ];
@@ -211,7 +211,7 @@ export const useGetPointHistoryInfinite = <
   TData = Awaited<ReturnType<typeof getPointHistory>>,
   TError = ErrorType<unknown>,
 >(
-  params: GetPointHistoryParams,
+  params?: GetPointHistoryParams,
   options?: { query?: UseInfiniteQueryOptions<Awaited<ReturnType<typeof getPointHistory>>, TError, TData> },
 ): UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey } => {
   const { query: queryOptions } = options ?? {};
@@ -236,7 +236,7 @@ export type GetPointHistoryQueryResult = NonNullable<Awaited<ReturnType<typeof g
 export type GetPointHistoryQueryError = ErrorType<unknown>;
 
 export const useGetPointHistory = <TData = Awaited<ReturnType<typeof getPointHistory>>, TError = ErrorType<unknown>>(
-  params: GetPointHistoryParams,
+  params?: GetPointHistoryParams,
   options?: { query?: UseQueryOptions<Awaited<ReturnType<typeof getPointHistory>>, TError, TData> },
 ): UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
   const { query: queryOptions } = options ?? {};
@@ -260,11 +260,11 @@ export const useGetPointHistory = <TData = Awaited<ReturnType<typeof getPointHis
 /**
  * @summary 진행중인 주문 리스트 반환 (유저)
  */
-export const getOnOrdersByUser = (params: GetOnOrdersByUserParams, signal?: AbortSignal) => {
+export const getOnOrdersByUser = (params?: GetOnOrdersByUserParams, signal?: AbortSignal) => {
   return axiosInstance<CursorOrderListResp>({ url: `/orders/on`, method: 'get', params, signal });
 };
 
-export const getGetOnOrdersByUserQueryKey = (params: GetOnOrdersByUserParams) => [
+export const getGetOnOrdersByUserQueryKey = (params?: GetOnOrdersByUserParams) => [
   `/orders/on`,
   ...(params ? [params] : []),
 ];
@@ -276,7 +276,7 @@ export const useGetOnOrdersByUserInfinite = <
   TData = Awaited<ReturnType<typeof getOnOrdersByUser>>,
   TError = ErrorType<unknown>,
 >(
-  params: GetOnOrdersByUserParams,
+  params?: GetOnOrdersByUserParams,
   options?: { query?: UseInfiniteQueryOptions<Awaited<ReturnType<typeof getOnOrdersByUser>>, TError, TData> },
 ): UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey } => {
   const { query: queryOptions } = options ?? {};
@@ -304,7 +304,7 @@ export const useGetOnOrdersByUser = <
   TData = Awaited<ReturnType<typeof getOnOrdersByUser>>,
   TError = ErrorType<unknown>,
 >(
-  params: GetOnOrdersByUserParams,
+  params?: GetOnOrdersByUserParams,
   options?: { query?: UseQueryOptions<Awaited<ReturnType<typeof getOnOrdersByUser>>, TError, TData> },
 ): UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
   const { query: queryOptions } = options ?? {};
@@ -328,11 +328,11 @@ export const useGetOnOrdersByUser = <
 /**
  * @summary 완료, 거절, 취소 주문 리스트 반환 (유저)
  */
-export const getOffOrdersByUser = (params: GetOffOrdersByUserParams, signal?: AbortSignal) => {
+export const getOffOrdersByUser = (params?: GetOffOrdersByUserParams, signal?: AbortSignal) => {
   return axiosInstance<CursorOrderListResp>({ url: `/orders/off`, method: 'get', params, signal });
 };
 
-export const getGetOffOrdersByUserQueryKey = (params: GetOffOrdersByUserParams) => [
+export const getGetOffOrdersByUserQueryKey = (params?: GetOffOrdersByUserParams) => [
   `/orders/off`,
   ...(params ? [params] : []),
 ];
@@ -344,7 +344,7 @@ export const useGetOffOrdersByUserInfinite = <
   TData = Awaited<ReturnType<typeof getOffOrdersByUser>>,
   TError = ErrorType<unknown>,
 >(
-  params: GetOffOrdersByUserParams,
+  params?: GetOffOrdersByUserParams,
   options?: { query?: UseInfiniteQueryOptions<Awaited<ReturnType<typeof getOffOrdersByUser>>, TError, TData> },
 ): UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey } => {
   const { query: queryOptions } = options ?? {};
@@ -372,7 +372,7 @@ export const useGetOffOrdersByUser = <
   TData = Awaited<ReturnType<typeof getOffOrdersByUser>>,
   TError = ErrorType<unknown>,
 >(
-  params: GetOffOrdersByUserParams,
+  params?: GetOffOrdersByUserParams,
   options?: { query?: UseQueryOptions<Awaited<ReturnType<typeof getOffOrdersByUser>>, TError, TData> },
 ): UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
   const { query: queryOptions } = options ?? {};

@@ -20,7 +20,7 @@ const Nickname: React.FC<PropsWithChildren<RegisterNavProps<'Nickname'>>> = ({ n
   };
 
   return (
-    <Fragment>
+    <Fragment className="px-5">
       <RegisterForm
         processIndex={processIndex}
         processLength={processLength}

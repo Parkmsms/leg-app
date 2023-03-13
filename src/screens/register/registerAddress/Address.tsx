@@ -13,7 +13,7 @@ const Address: React.FC<PropsWithChildren<RegisterAddressNavProps<'Address'>>> =
   const processLength = navigation.getState().routeNames.length - 1;
 
   return (
-    <Fragment>
+    <Fragment className="px-5">
       <RegisterForm
         processIndex={processIndex}
         processLength={processLength}

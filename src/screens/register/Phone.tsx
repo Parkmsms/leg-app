@@ -18,7 +18,7 @@ const Phone: React.FC<PropsWithChildren<RegisterNavProps<'Phone'>>> = ({ navigat
   };
 
   return (
-    <Fragment>
+    <Fragment className="px-5">
       <RegisterForm
         processIndex={processIndex}
         processLength={processLength}

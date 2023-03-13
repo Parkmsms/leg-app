@@ -10,7 +10,7 @@ const Mypage: React.FC<PropsWithChildren<MainNavProps<'Mypage'>>> = ({ navigatio
   const { accessToken, logout } = useUserStore();
 
   return (
-    <Fragment>
+    <Fragment className="px-5">
       <Text>Mypage</Text>
       <Text className="my-4">{accessToken}</Text>
       <Btn
