@@ -36,7 +36,46 @@ const ProcessList: React.FC<PropsWithChildren<OrderProcessNavProps<'OrderProcess
                 <SafeAreaView className="flex-1" key={index}>
                   <View className="justify-center items-center">
                     <View className="border1 mt-[20px] pl-[26px] pr-[26px] pt-[15px] pb-[15px] bg-[#FFFFFF] rounded-lg w-full shadow-lg shadow-indigo-500/40 ">
-                      <Text>{order.orderAt}</Text>
+                      <View className="flex-row space-x-1.5">
+                        {order.status === "REQUEST" && (
+                          <>
+                            <Text className="font-suit-700 text-[18px] text-[#101010]">
+                            포장대기
+                            </Text>
+                            <Text className="mt-[5px] font-suit-700 text-[11px] text-[#00C1DE] ">
+                            ⌛{order.orderAt}
+                            </Text>
+                          </>
+                        )}
+                        {order.status === "ACCEPT" && (
+                          <>
+                            <Text className="font-suit-700 text-[18px] text-[#101010]">
+                            주문수락
+                            </Text>
+                            <Text className="mt-[5px] font-suit-700 text-[11px] text-[#00C1DE] ">
+                            ⌛{order.orderAt}
+                            </Text>
+                          </>
+                        )}
+                      </View>
+
+                      <View className="flex-row space-x-1.5 mt-[10px]">
+                        <Image
+                          source={{uri: order.storeProfile ? order.storeProfile : 'none'}}
+                          className="w-[100px] h-[80px] rounded-lg"
+                          style={{ resizeMode: 'contain' }}
+                        />
+                        <View>
+                          <Text>g</Text>
+                        </View>
+                      </View>
+
+                      <View>
+                        <Text>
+                          {order.orderAt}
+                        </Text>
+                      </View>
+
                     </View>
                   </View>
                 </SafeAreaView>
