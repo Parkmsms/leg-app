@@ -1,9 +1,9 @@
 import React, { PropsWithChildren } from 'react';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { OrderParamList } from './OrderParamList';
-import ProcessList from '../../screens/main/order/ProcessList';
-import SuccessList from '../../screens/main/order/SuccessList';
 import colors from '../../constants/colors';
+import OrderCompleteNav from '../OrderComplete/OrderCompleteNav';
+import OrderProcessNav from '../OrderProcess/OrderProcessNav';
 import TopTabBar from './TopTabBar';
 
 const Tab = createMaterialTopTabNavigator<OrderParamList>();
@@ -18,8 +18,8 @@ const OrderNav: React.FC<PropsWithChildren> = () => {
         tabBarStyle: { height: 52, borderBottomWidth: 1, borderBottomColor: '#EDEDED' },
       }}
       tabBar={TopTabBar}>
-      <Tab.Screen name="ProcessList" options={{ title: '주문 내역' }} component={ProcessList} />
-      <Tab.Screen name="SuccessList" options={{ title: '완료 내역' }} component={SuccessList} />
+      <Tab.Screen name="ProcessList" options={{ title: '주문 내역' }} component={OrderProcessNav} />
+      <Tab.Screen name="CompleteList" options={{ title: '완료 내역' }} component={OrderCompleteNav} />
     </Tab.Navigator>
   );
 };

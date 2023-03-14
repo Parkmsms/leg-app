@@ -4,7 +4,7 @@ import { MainParamList } from '..';
 
 export type OrderParamList = MainParamList & {
   ProcessList: undefined;
-  SuccessList: undefined;
+  CompleteList: undefined;
 };
 
 export type OrderNavProps<T extends keyof OrderParamList> = {
