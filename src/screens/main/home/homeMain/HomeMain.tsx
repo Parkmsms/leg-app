@@ -1,18 +1,18 @@
 import React, { PropsWithChildren, useState } from 'react';
 import { Text } from 'react-native';
 
-import { MainNavProps } from '../../navigators';
-import Fragment from '../../components/Fragment';
-import { useUserStore } from '../../store';
-import { useGetAllKinds } from '../../api/kind/kind';
-import useRefreshOnFocus from '../../hooks/useRefreshOnFocus';
-import Loading from '../../components/Loading';
-import { PostCursorReq } from '../../api/types';
-import { useGetPosts } from '../../api/post/post';
-import { useGetBannerList } from '../../api/banner/banner';
-import { useGetActiveLocation } from '../../api/user-location/user-location';
+import { HomeNavProps } from '../../../../navigators/home/HomeParamList';
+import Fragment from '../../../../components/Fragment';
+import { useUserStore } from '../../../../store';
+import { useGetAllKinds } from '../../../../api/kind/kind';
+import useRefreshOnFocus from '../../../../hooks/useRefreshOnFocus';
+import Loading from '../../../../components/Loading';
+import { PostCursorReq } from '../../../../api/types';
+import { useGetPosts } from '../../../../api/post/post';
+import { useGetBannerList } from '../../../../api/banner/banner';
+import { useGetActiveLocation } from '../../../../api/user-location/user-location';
 
-const Home: React.FC<PropsWithChildren<MainNavProps<'Home'>>> = ({ navigation }) => {
+const HomeMain: React.FC<PropsWithChildren<HomeNavProps<'HomeMain'>>> = ({ navigation }) => {
   const { accessToken } = useUserStore();
   const [reqDto, setReqDto] = useState<PostCursorReq>({ foodType: '전체', search: '', sort: 'DISTANCE', lastId: 0 });
   const {
@@ -63,4 +63,4 @@ const Home: React.FC<PropsWithChildren<MainNavProps<'Home'>>> = ({ navigation })
   );
 };
 
-export default Home;
+export default HomeMain;
