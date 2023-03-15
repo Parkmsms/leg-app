@@ -8,7 +8,6 @@ import Loading from '../../../components/Loading';
 import { OrderListResp } from '../../../api/types';
 
 const ProcessList: React.FC<PropsWithChildren<OrderProcessNavProps<'OrderProcess'>>> = () => {
-  const [orderList, setOrderList] = useState()
 
   const {
     isLoading: ordersLoading,
@@ -21,7 +20,13 @@ const ProcessList: React.FC<PropsWithChildren<OrderProcessNavProps<'OrderProcess
 
   if (!orders) {
     // loading처리말고 mock데이터나 이미지 처리 필요
-    return <Loading />;
+    // return <Loading />;
+    return (
+      <View className='items-center '>
+        <Image source={require('../../../assets/images/emptyOrder.png')} className="w-100 h-100" />
+        <Text>상품이 없어요 배고파요</Text>
+      </View>
+    )
   }
 
 
@@ -58,24 +63,40 @@ const ProcessList: React.FC<PropsWithChildren<OrderProcessNavProps<'OrderProcess
                           </>
                         )}
                       </View>
-
-                      <View className="flex-row space-x-1.5 mt-[10px]">
+                      <View className="flex-row space-x-3 mt-[10px]">
                         <Image
                           source={{uri: order.storeProfile ? order.storeProfile : 'none'}}
                           className="w-[100px] h-[80px] rounded-lg"
                           style={{ resizeMode: 'contain' }}
                         />
-                        <View>
-                          <Text>g</Text>
+                        <View className="flex-col space-y-1.5">
+                          <Text className='font-suit-500 text-[11px] text-[#B1B1B1]'>{order.orderAt}</Text>
+                          <Text className='font-suit-600 text-[15px] text-[#111111]'>{order.storeName}</Text>
+                          <Text className='font-suit-400 text-[14px] text-[#111111]'>{order.simpleMenu}</Text>
                         </View>
                       </View>
-
-                      <View>
-                        <Text>
-                          {order.orderAt}
-                        </Text>
+                      <View className='flex-row space-x-4 mt-[10px]'>
+                        {order.status === "REQUEST" &&
+                          <>
+                            <TouchableOpacity className='flex-1 w-20 border-[1px] rounded-lg border-rose-500 bg-[#FFFFFF] '>
+                              <Text className="font-suit-700 text-center text-[15px] text-[#F43F5E] m-[8px]">주문 취소</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity className='flex-1  ml-[10px] border-[1px #00C1DE] rounded-lg bg-[#00C1DE] '>
+                              <Text className="font-suit-700 text-center text-[15px] text-[#FFFFFF] m-[8px]">주문 상세</Text>
+                            </TouchableOpacity>
+                          </>
+                        }
+                        {order.status === "ACCEPT" &&
+                          <>
+                            <TouchableOpacity className='flex-1 ml-[10px] border-[1px #00C1DE] rounded-lg bg-[#00C1DE] '>
+                              <Text className="font-suit-700 text-center text-[15px] text-[#FFFFFF] m-[8px]">주문 현황</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity className='flex-1  ml-[10px] border-[1px #00C1DE] rounded-lg bg-[#00C1DE] '>
+                              <Text className="font-suit-700 text-center text-[15px] text-[#FFFFFF] m-[8px]">주문 상세</Text>
+                            </TouchableOpacity>
+                          </>
+                        }
                       </View>
-
                     </View>
                   </View>
                 </SafeAreaView>
@@ -85,144 +106,5 @@ const ProcessList: React.FC<PropsWithChildren<OrderProcessNavProps<'OrderProcess
     </Fragment>
   );
 };
-
-export const OrderWrapper = StyleSheet.create({
-  MainContainer: {
-    flex: 1,
-    backgroundColor: '#F3F3F3',
-  },
-  CenterAlign: {
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  ContentsBox: {
-    borderWidth: 1,
-    marginTop: 20,
-    sborderRadius: 1,
-    paddingLeft: 26,
-    paddingRight: 26,
-    paddingTop: 15,
-    paddingBottom: 15,
-    borderColor: 'rgba(0, 0, 0, 0.05)',
-    backgroundColor: 'white',
-  },
-  Vertical: {
-    flexDirection: 'column',
-  },
-  Horizontal: {
-    flexDirection: 'row',
-  },
-  ActivateButton: {
-    backgroundColor: '#00C1DE',
-    borderRadius: 10,
-    height: 40,
-    justifyContent: 'center',
-    alignContent: 'center',
-    margin: 5,
-    flex: 2,
-  },
-  cancleButton: {
-    backgroundColor: '#FFFFFF',
-    borderWidth: 1.5,
-    borderstyle: 'solid',
-    borderColor: '#ee5960',
-    borderRadius: 10,
-    height: 40,
-    justifyContent: 'center',
-    alignContent: 'center',
-    margin: 5,
-    flex: 2,
-  },
-  cancleButtonText: {
-    fontSize: 17,
-    fontFamily: 'Apple SD Gothic Neo',
-    fontStyle: 'normal',
-    fontWeight: 'bold',
-    color: '#ee5960',
-    alignSelf: 'center',
-    alignItems: 'center',
-    textAlign: 'center',
-    justifyContent: 'center',
-    alignContent: 'center',
-  },
-  InActivateButton: {
-    backgroundColor: '#3E3E3E',
-    borderRadius: 10,
-    height: 40,
-    justifyContent: 'center',
-    alignContent: 'center',
-  },
-  ButtonText: {
-    fontSize: 17,
-    fontFamily: 'Urbanist',
-    fontWeight: 'bold',
-    color: 'white',
-    alignSelf: 'center',
-    alignItems: 'center',
-    textAlign: 'center',
-    justifyContent: 'center',
-    alignContent: 'center',
-  },
-  FontText: {
-    fontFamily: 'Apple SD Gothic Neo',
-    fontStyle: 'normal',
-    letterSpacing: 0.5,
-  },
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    backgroundColor: 'background-color: rgba(0, 0, 0, 0.01)',
-  },
-  horizontal: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    padding: 10,
-  },
-
-  StatusButton: {
-    backgroundColor: '#3E3E3E',
-    borderRadius: 8,
-    width: 22,
-    justifyContent: 'center',
-    alignContent: 'center',
-  },
-  StatusText: {
-    fontSize: 16,
-    fontFamily: 'Urbanist',
-    fontWeight: 'bold',
-    color: 'white',
-    alignSelf: 'center',
-    alignItems: 'center',
-    textAlign: 'center',
-    justifyContent: 'center',
-    alignContent: 'center',
-  },
-
-  AddPhotoButtonText: {
-    fontSize: 17,
-    fontFamily: 'Apple SD Gothic Neo',
-    fontStyle: 'normal',
-    fontWeight: 'bold',
-    color: '#00C1DE',
-    alignSelf: 'center',
-    alignItems: 'center',
-    textAlign: 'center',
-    justifyContent: 'center',
-    alignContent: 'center',
-  },
-
-  AddPhotoButton: {
-    backgroundColor: '#FFFFFF',
-    borderWidth: 1.5,
-    borderstyle: 'solid',
-    borderColor: '#00C1DE',
-    borderRadius: 10,
-    height: 40,
-    justifyContent: 'center',
-    alignContent: 'center',
-    margin: 5,
-    flex: 2,
-  },
-});
 
 export default ProcessList;
