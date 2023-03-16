@@ -1,13 +1,15 @@
 import React, { PropsWithChildren,useState } from 'react';
-import { OrderProcessNavProps } from '../../../navigators';
+import { OrderProcessNavProps } from '../../../../navigators';
 import { Text, View, StyleSheet, ScrollView,TouchableOpacity,SafeAreaView,Image } from 'react-native';
-import Fragment from '../../../components/Fragment';
-import { useGetOnOrdersByUser } from '../../../api/order/order';
-import useRefreshOnFocus from '../../../hooks/useRefreshOnFocus';
-import Loading from '../../../components/Loading';
-import { OrderListResp } from '../../../api/types';
+import Fragment from '../../../../components/Fragment';
+import { useGetOnOrdersByUser } from '../../../../api/order/order';
+import useRefreshOnFocus from '../../../../hooks/useRefreshOnFocus';
+import Loading from '../../../../components/Loading';
+import { OrderListResp } from '../../../../api/types';
+import { dateFilter } from '../OrderFilter';
+import { OrderNavProps } from '../../../../navigators';
 
-const ProcessList: React.FC<PropsWithChildren<OrderProcessNavProps<'OrderProcess'>>> = () => {
+const ProcessList: React.FC<PropsWithChildren<OrderNavProps<'ProcessList'>>> = ({ navigation, route }) => {
 
   const {
     isLoading: ordersLoading,
@@ -18,13 +20,16 @@ const ProcessList: React.FC<PropsWithChildren<OrderProcessNavProps<'OrderProcess
 
   useRefreshOnFocus(refetchorders);
 
-  if (!orders) {
+  console.log(orders)
+
+
+  if (!orders?.content?.length) {
     // loading처리말고 mock데이터나 이미지 처리 필요
     // return <Loading />;
     return (
       <View className='items-center '>
-        <Image source={require('../../../assets/images/emptyOrder.png')} className="w-100 h-100" />
-        <Text>상품이 없어요 배고파요</Text>
+        <Image source={require('../../../../assets/images/emptyOrder.png')} className="w-100 h-100" />
+        <Text className="font-suit-500">상품이 없어요 배고파요</Text>
       </View>
     )
   }
@@ -48,7 +53,7 @@ const ProcessList: React.FC<PropsWithChildren<OrderProcessNavProps<'OrderProcess
                             포장대기
                             </Text>
                             <Text className="mt-[5px] font-suit-700 text-[11px] text-[#00C1DE] ">
-                            ⌛{order.orderAt}
+                            ⌛{dateFilter('orderAt', {date: order.orderAt})}
                             </Text>
                           </>
                         )}
@@ -58,7 +63,7 @@ const ProcessList: React.FC<PropsWithChildren<OrderProcessNavProps<'OrderProcess
                             주문수락
                             </Text>
                             <Text className="mt-[5px] font-suit-700 text-[11px] text-[#00C1DE] ">
-                            ⌛{order.orderAt}
+                            ⌛{dateFilter('orderAt', {date: order.orderAt})}
                             </Text>
                           </>
                         )}
@@ -70,7 +75,7 @@ const ProcessList: React.FC<PropsWithChildren<OrderProcessNavProps<'OrderProcess
                           style={{ resizeMode: 'contain' }}
                         />
                         <View className="flex-col space-y-1.5">
-                          <Text className='font-suit-500 text-[11px] text-[#B1B1B1]'>{order.orderAt}</Text>
+                          <Text className='font-suit-500 text-[11px] text-[#B1B1B1]'>{dateFilter('orderAt', {date: order.orderAt})}</Text>
                           <Text className='font-suit-600 text-[15px] text-[#111111]'>{order.storeName}</Text>
                           <Text className='font-suit-400 text-[14px] text-[#111111]'>{order.simpleMenu}</Text>
                         </View>
@@ -88,7 +93,9 @@ const ProcessList: React.FC<PropsWithChildren<OrderProcessNavProps<'OrderProcess
                         }
                         {order.status === "ACCEPT" &&
                           <>
-                            <TouchableOpacity className='flex-1 ml-[10px] border-[1px #00C1DE] rounded-lg bg-[#00C1DE] '>
+                            <TouchableOpacity 
+                              onPress={()=>navigation.navigate('OrderStatus')}
+                              className='flex-1 border-[1px #00C1DE] rounded-lg bg-[#00C1DE] '>
                               <Text className="font-suit-700 text-center text-[15px] text-[#FFFFFF] m-[8px]">주문 현황</Text>
                             </TouchableOpacity>
                             <TouchableOpacity className='flex-1  ml-[10px] border-[1px #00C1DE] rounded-lg bg-[#00C1DE] '>

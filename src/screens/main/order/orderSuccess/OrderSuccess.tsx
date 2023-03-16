@@ -1,13 +1,15 @@
 import React, { PropsWithChildren } from 'react';
-import { OrderCompleteNavProps } from '../../../navigators';
+import { OrderCompleteNavProps } from '../../../../navigators';
 import { Text, View, ScrollView, SafeAreaView, TouchableOpacity, Image} from 'react-native';
-import { useGetOffOrdersByUser } from '../../../api/order/order';
-import useRefreshOnFocus from '../../../hooks/useRefreshOnFocus';
-import Loading from '../../../components/Loading';
-import Fragment from '../../../components/Fragment';
-import { OrderListResp } from '../../../api/types';
+import { useGetOffOrdersByUser } from '../../../../api/order/order';
+import useRefreshOnFocus from '../../../../hooks/useRefreshOnFocus';
+import Loading from '../../../../components/Loading';
+import Fragment from '../../../../components/Fragment';
+import { OrderListResp } from '../../../../api/types';
+import { dateFilter } from '../OrderFilter';
+import { OrderNavProps } from '../../../../navigators';
 
-const SuccessList: React.FC<PropsWithChildren<OrderCompleteNavProps<'OrderSuccess'>>> = () => {
+const SuccessList: React.FC<PropsWithChildren<OrderNavProps<'CompleteList'>>> = () => {
 
   const {
     isLoading: ordersLoading,
@@ -18,13 +20,13 @@ const SuccessList: React.FC<PropsWithChildren<OrderCompleteNavProps<'OrderSucces
 
   useRefreshOnFocus(refetchorders);
 
-  if (!orders) {
+  if (!orders?.content?.length) {
     // loading처리말고 mock데이터나 이미지 처리 필요
     // return <Loading />;
     return (
       <View className='items-center '>
-        <Image source={require('../../../assets/images/emptyOrder.png')} className="w-100 h-100" />
-        <Text>상품이 없어요 배고파요</Text>
+        <Image source={require('../../../../assets/images/emptyOrder.png')} className="w-100 h-100" />
+        <Text className="font-suit-500">상품이 없어요 배고파요</Text>
       </View>
     )
   }
@@ -64,7 +66,7 @@ const SuccessList: React.FC<PropsWithChildren<OrderCompleteNavProps<'OrderSucces
                           style={{ resizeMode: 'contain' }}
                         />
                         <View className="flex-col space-y-1.5">
-                          <Text className='font-suit-500 text-[11px] text-[#B1B1B1]'>{order.orderAt}</Text>
+                          <Text className='font-suit-500 text-[11px] text-[#B1B1B1]'>{dateFilter('doneAt', {date: order.doneAt})}</Text>
                           <Text className='font-suit-600 text-[15px] text-[#111111]'>{order.storeName}</Text>
                           <Text className='font-suit-400 text-[14px] text-[#111111]'>{order.simpleMenu}</Text>
                         </View>

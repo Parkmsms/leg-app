@@ -1,8 +1,9 @@
 import { RouteProp } from '@react-navigation/native';
 import { MaterialTopTabNavigationProp } from '@react-navigation/material-top-tabs';
 import { MainParamList } from '..';
+import { OrderMainParamList } from '../orderMain/OrderMainParamList';
 
-export type OrderParamList = MainParamList & {
+export type OrderParamList = OrderMainParamList & {
   ProcessList: undefined;
   CompleteList: undefined;
 };

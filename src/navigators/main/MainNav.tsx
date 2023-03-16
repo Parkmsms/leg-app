@@ -5,7 +5,8 @@ import { useNavigatorStore } from '../../store';
 
 import BottomTabBar from './BottomTabBar';
 import Mypage from '../../screens/main/Mypage';
-import OrderNav from '../order/OrderNav';
+// import OrderNav from '../order/OrderNav';
+import OrderMainNav from '../orderMain/OrderMainNav';
 import HomeNav from '../home/HomeNav';
 
 const Tab = createBottomTabNavigator<MainParamList>();
@@ -19,7 +20,7 @@ const MainNav: React.FC<PropsWithChildren> = () => {
       screenOptions={{ tabBarStyle: { display: tabBarDisplay ? 'flex' : 'none' }, headerShown: false }}
       tabBar={props => <BottomTabBar {...(props as TabBarProps)} />}>
       <Tab.Screen name="Home" component={HomeNav} />
-      <Tab.Screen name="Order" component={OrderNav} />
+      <Tab.Screen name="Order" component={OrderMainNav} />
       <Tab.Screen name="Mypage" component={Mypage} />
     </Tab.Navigator>
   );
