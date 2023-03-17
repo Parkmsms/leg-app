@@ -1,6 +1,6 @@
 export const dateFilter = (val: string, param?: any) => {
     if (param.date === null) {
-      return '없음';
+      return '';
     } else if (param.date !== null) {
       let fullDate = param.date.toString().replace('T', ' ');
       let dayStr = new Date(param.date);
@@ -10,7 +10,7 @@ export const dateFilter = (val: string, param?: any) => {
       let month = fullDate.slice(5, 7);
       let day = fullDate.slice(8, 10);
       let time = fullDate.slice(11, 16);
-      if (val === 'pickUpAt') {
+      if (val === 'storeTime') {
         let today = new Date().getTime();
         let compDay = new Date(param.date).getTime();
 
@@ -27,15 +27,16 @@ export const dateFilter = (val: string, param?: any) => {
           } else {
             result = Math.floor(data) + '분 후';
           }
-          const timeSetParam = {
-            t_minutes: Math.floor(data),
-          };
+          const timeSetParam = Math.floor(data)
+          return timeSetParam;
           // dispatch(doTimer(timeSetParam));
         } else {
           // dispatch(doTimer({t_minutes: 0}));
-          result = '시간만료';
+          result = 0
         }
         return result;
+      } else if (val === 'pickUpAt'){
+        return `픽업시간 ${time}`
       } else if (val === 'orderAt') {
         return `${year}.${month}.${day}(${week}) ${time} 주문`;
       } else if (val === 'doneAt') {

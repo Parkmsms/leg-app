@@ -1,5 +1,4 @@
 import React, { PropsWithChildren } from 'react';
-import { OrderCompleteNavProps } from '../../../../navigators';
 import { Text, View, ScrollView, SafeAreaView, TouchableOpacity, Image} from 'react-native';
 import { useGetOffOrdersByUser } from '../../../../api/order/order';
 import useRefreshOnFocus from '../../../../hooks/useRefreshOnFocus';

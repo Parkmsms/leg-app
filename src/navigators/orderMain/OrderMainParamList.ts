@@ -4,7 +4,7 @@ import { MainParamList } from '..';
 
 export type OrderMainParamList = MainParamList & {
   OrderTab:undefined
-  OrderStatus:undefined
+  OrderStatus:undefined | { pickUpAt : number | undefined}
 };
 
 export type OrderMainNavProps<T extends keyof OrderMainParamList> = {

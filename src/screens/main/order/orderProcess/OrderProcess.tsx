@@ -1,5 +1,4 @@
 import React, { PropsWithChildren,useState } from 'react';
-import { OrderProcessNavProps } from '../../../../navigators';
 import { Text, View, StyleSheet, ScrollView,TouchableOpacity,SafeAreaView,Image } from 'react-native';
 import Fragment from '../../../../components/Fragment';
 import { useGetOnOrdersByUser } from '../../../../api/order/order';
@@ -53,7 +52,6 @@ const ProcessList: React.FC<PropsWithChildren<OrderNavProps<'ProcessList'>>> = (
                             포장대기
                             </Text>
                             <Text className="mt-[5px] font-suit-700 text-[11px] text-[#00C1DE] ">
-                            ⌛{dateFilter('orderAt', {date: order.orderAt})}
                             </Text>
                           </>
                         )}
@@ -63,7 +61,7 @@ const ProcessList: React.FC<PropsWithChildren<OrderNavProps<'ProcessList'>>> = (
                             주문수락
                             </Text>
                             <Text className="mt-[5px] font-suit-700 text-[11px] text-[#00C1DE] ">
-                            ⌛{dateFilter('orderAt', {date: order.orderAt})}
+                            ⌛{dateFilter('pickUpAt', {date: order.pickUpAt})}
                             </Text>
                           </>
                         )}
@@ -94,7 +92,7 @@ const ProcessList: React.FC<PropsWithChildren<OrderNavProps<'ProcessList'>>> = (
                         {order.status === "ACCEPT" &&
                           <>
                             <TouchableOpacity 
-                              onPress={()=>navigation.navigate('OrderStatus')}
+                              onPress={()=>navigation.navigate('OrderStatus',{pickUpAt:dateFilter('storeTime',{date:order.pickUpAt})})}
                               className='flex-1 border-[1px #00C1DE] rounded-lg bg-[#00C1DE] '>
                               <Text className="font-suit-700 text-center text-[15px] text-[#FFFFFF] m-[8px]">주문 현황</Text>
                             </TouchableOpacity>

@@ -10,8 +10,7 @@ import { RegisterParamList, RegisterNavProps } from './register/RegisterParamLis
 import { MainParamList, MainNavProps } from './main/MainParamList';
 import { RegisterAddressParamList, RegisterAddressNavProps } from './registerAddress/RegisterAddressParamList';
 import { OrderParamList,OrderNavProps } from './order/OrderParamList';
-import { OrderCompleteParamList,OrderCompleteNavProps } from './OrderComplete/OrderCompleteParamList';
-import { OrderProcessParamList,OrderProcessNavProps } from './OrderProcess/OrderProcessParamLIst';
+import { OrderMainNavProps, OrderMainParamList } from './orderMain/OrderMainParamList';
 
 export type {
   RootParamList,
@@ -26,8 +25,6 @@ export type {
   RegisterAddressNavProps,
   OrderParamList,
   OrderNavProps,
-  OrderCompleteParamList,
-  OrderCompleteNavProps,
-  OrderProcessParamList,
-  OrderProcessNavProps
+  OrderMainNavProps,
+  OrderMainParamList,
 };
