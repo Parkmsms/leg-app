@@ -42,12 +42,9 @@ const ProcessList: React.FC<PropsWithChildren<OrderMainNavProps<'OrderStatus'>>>
 
   useEffect(() => {
     getActiveLocation();
-    console.log("1",route.params?.pickUpAt)
-    if(route.params?.pickUpAt){
-      console.log("hihihi")
-      userStore.doTimer(route.params?.pickUpAt)
+    if(typeof route.params?.pickUpAt === 'number'){
+      userStore.doTimer(route.params.pickUpAt)
     }
-    userStore.doTimer(route.params?.pickUpAt);
   },[])
 
   const closeConfirm = () => {
@@ -89,7 +86,7 @@ const ProcessList: React.FC<PropsWithChildren<OrderMainNavProps<'OrderStatus'>>>
     );
   };
 
-  if (!orderStatus) {
+  if (!orderStatus || orderStatusLoading) {
     return <Loading />;
   }
 

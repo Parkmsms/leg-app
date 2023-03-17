@@ -23,7 +23,7 @@ const CountDownPage = () => {
    
     // const userStore = useTiemStore();
     return (
-        <Text>{minute}</Text>
+        <Text className={ minute >= 5 ? `text-[#00C1DE]`: `text-[#F43F5E]`}>{minute}</Text>
     )
 
 }
