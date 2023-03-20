@@ -27,9 +27,6 @@ const ProcessList: React.FC<PropsWithChildren<OrderMainNavProps<'OrderStatus'>>>
     longitude: 0,
   });
 
-  // Store
-  const userStore = useTiemStore();
-
   // Api
   const {
     isLoading: orderStatusLoading,
@@ -42,9 +39,6 @@ const ProcessList: React.FC<PropsWithChildren<OrderMainNavProps<'OrderStatus'>>>
 
   useEffect(() => {
     getActiveLocation();
-    if(typeof route.params?.pickUpAt === 'number'){
-      userStore.doTimer(route.params.pickUpAt)
-    }
   },[])
 
   const closeConfirm = () => {
@@ -91,8 +85,8 @@ const ProcessList: React.FC<PropsWithChildren<OrderMainNavProps<'OrderStatus'>>>
   }
 
   return (
-    <Fragment className='bg-[#FFFFFF]'>
-      <View className='flex-col items-center space-y-4 mt-20'>
+    <Fragment className='bg-[#FFFFFF] '>
+      <View className='flex-col items-center space-y-3 justify-items-center mt-10' >
         <Text className='font-suit-700 text-[27px] text-[#111111]'>픽업 대기중</Text>
         <Text className='font-suit-400 text-[14px] text-[#787878] mb-[20px]'>주문하신 음식이 기다리고 있어요!</Text>
         <Image

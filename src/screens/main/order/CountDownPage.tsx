@@ -15,7 +15,7 @@ const CountDownPage = () => {
             }
         },60000);
         if ( minute === 0 ) {
-            timeStore.doEnd
+            timeStore.doTimer(minutes)
         }else{
             timeStore.doTimer(minutes)
         }

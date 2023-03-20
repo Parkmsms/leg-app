@@ -3,6 +3,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { OrderMainParamList } from './OrderMainParamList';
 import OrderNav from '../order/OrderNav';
 import OrderStatus from '../../screens/main/order/OrderStatus'
+import ReviewWrite from '../../screens/main/review/ReviewWrite';
 
 
 const Stack = createNativeStackNavigator<OrderMainParamList>();
@@ -23,6 +24,14 @@ const OrderMainNav: React.FC<PropsWithChildren> = () => {
           fontWeight: 'bold',
         },
       }}component={OrderStatus}/>
+      <Stack.Screen name="ReviewWrite" 
+      options={{
+        title: '리뷰 작성',
+        headerTitleStyle: {
+          fontSize: 15,
+          fontWeight: 'bold',
+        },
+      }}component={ReviewWrite}/>
     </Stack.Navigator>
   );
 };

@@ -8,7 +8,7 @@ import { OrderListResp } from '../../../../api/types';
 import { dateFilter } from '../OrderFilter';
 import { OrderNavProps } from '../../../../navigators';
 
-const SuccessList: React.FC<PropsWithChildren<OrderNavProps<'CompleteList'>>> = () => {
+const SuccessList: React.FC<PropsWithChildren<OrderNavProps<'CompleteList'>>> = ({ navigation, route }) => {
 
   const {
     isLoading: ordersLoading,
@@ -73,14 +73,15 @@ const SuccessList: React.FC<PropsWithChildren<OrderNavProps<'CompleteList'>>> = 
                       <View className='flex-row space-x-4 mt-[10px]'>
                         {order.status === "USER_CANCEL" &&
                           <>
-                            <TouchableOpacity className='flex-1 ml-[10px] border-2 border-[#00C1DE] rounded-lg bg-[#00C1DE] '>
-                              <Text className="font-suit-500 text-center text-[15px] text-[#FFFFFF] m-[8px]">주문 상세</Text>
+                            <TouchableOpacity className='flex-1 border-2 border-[#00C1DE] rounded-lg bg-[#00C1DE] '>
+                              <Text className="font-suit-700 text-center text-[15px] text-[#FFFFFF] m-[8px]">주문 상세</Text>
                             </TouchableOpacity>
                           </>
                         }
                         {order.status === "DONE" &&
                           <>
                             <TouchableOpacity 
+                            onPress={()=>{ navigation.navigate('ReviewWrite') }}
                             className={order.isReviewed===true ? 
                               'flex-1 border-[1px] border-[#999999] rounded-lg bg-[#D9D9D9] ' : 
                               'flex-1 border-[1px] border-[#00C1DE] rounded-lg bg-[#FFFFFF] ' 

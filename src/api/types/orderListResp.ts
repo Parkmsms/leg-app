@@ -7,8 +7,8 @@
 import type { OrderListRespStatus } from './orderListRespStatus';
 
 export interface OrderListResp {
-  id?: number;
-  orderNo?: string;
+  id: number;
+  orderNo: string;
   storeId?: number;
   orderAt?: string;
   storeProfile?: string;
