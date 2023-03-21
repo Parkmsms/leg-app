@@ -1,4 +1,4 @@
-import React, { PropsWithChildren,useState, useEffect } from 'react';
+import React, { PropsWithChildren, useState, useEffect } from 'react';
 import { OrderMainNavProps } from '../../../navigators';
 import { Text, View, Image } from 'react-native';
 import Fragment from '../../../components/Fragment';
@@ -33,13 +33,13 @@ const ProcessList: React.FC<PropsWithChildren<OrderMainNavProps<'OrderStatus'>>>
     data: orderStatus,
     error: orderStatusError,
     refetch: refetchOrderStatus,
-  } = useGetBetweenDistance(1, {lat : location.latitude ,lng:location.longitude },{ query: { enabled: true } });
+  } = useGetBetweenDistance(1, { lat: location.latitude, lng: location.longitude }, { query: { enabled: true } });
 
   useRefreshOnFocus(refetchOrderStatus);
 
   useEffect(() => {
     getActiveLocation();
-  },[])
+  }, [])
 
   const closeConfirm = () => {
     setConfirmOpen(false);
@@ -90,12 +90,12 @@ const ProcessList: React.FC<PropsWithChildren<OrderMainNavProps<'OrderStatus'>>>
         <Text className='font-suit-700 text-[27px] text-[#111111]'>픽업 대기중</Text>
         <Text className='font-suit-400 text-[14px] text-[#787878] mb-[20px]'>주문하신 음식이 기다리고 있어요!</Text>
         <Image
-            source={require('../../../assets/images/order-status2.png')}
-            className='w-[200px] h-[180px] mb-[20px]'
-          />
+          source={require('../../../assets/images/order-status2.png')}
+          className='w-[200px] h-[180px] mb-[20px]'
+        />
         <View className='flex-row space-x-1'>
           <Text className='font-suit-700 text-[30px] text-[#00C1DE]'>
-            <CountDownPage/>
+            <CountDownPage />
           </Text>
           <Text className='font-suit-700 text-[30px] text-[#000000]'>분</Text>
         </View>
@@ -106,11 +106,11 @@ const ProcessList: React.FC<PropsWithChildren<OrderMainNavProps<'OrderStatus'>>>
           <Text onPress={getActiveLocation} className=' font-suit-700 text-[14px]'>↻</Text>
         </View>
         <Btn
-        title="포장받기 완료"
-        onPress={()=>setConfirmOpen(true)}
-        className={`py-[14px] bg-[#00C1DE] w-5/6`}
-        fontSize={16}
-      />
+          title="포장받기 완료"
+          onPress={() => setConfirmOpen(true)}
+          className={`py-[14px] bg-[#00C1DE] w-5/6`}
+          fontSize={16}
+        />
       </View>
       {/* confirm Modal */}
       <OrderConfirmPopUp

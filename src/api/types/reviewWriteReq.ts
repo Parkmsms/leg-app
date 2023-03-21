@@ -9,5 +9,5 @@ export interface ReviewWriteReq {
   orderNo?: string;
   star?: number;
   comment?: string;
-  images?: string[];
+  images: string[];
 }

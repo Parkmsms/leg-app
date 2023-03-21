@@ -1,95 +1,40 @@
-import React, {PropsWithChildren, useEffect, useState} from 'react';
+import React, { PropsWithChildren, useEffect, useState } from 'react';
 import { OrderMainNavProps } from '../../../navigators';
 import {
-  Keyboard,
-  Alert,
-  Button,
   PermissionsAndroid,
-  Dimensions,
   Image,
   Platform,
-  NativeSyntheticEvent,
-  SafeAreaView,
-  ScrollView,
-  StyleSheet,
   Text,
   TouchableOpacity,
   View,
   TextInput,
 } from 'react-native';
-import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 // import { SaveReviewAPI, getAccessToken } from "../../config/AxiosFunction";
-import Icon from 'react-native-vector-icons/Ionicons';
 import Stars from 'react-native-stars';
 import BottomSheet from '../order/orderModal/BottomSheet'
-import useDidMountEffect from '../../../hooks/useDidMountEffect';
 //MIT Lisense from https://www.npmjs.com/package/react-native-image-resizer
 import ImageResizer from 'react-native-image-resizer';
 import axios from 'axios';
 import Fragment from '../../../components/Fragment';
-import CustomTextInput from '../../../components/CustomTextInput';
-
-type ReviewWriteProps = {
-  route: any;
-  navigation?: any;
-  isClicked: boolean;
-};
-
- interface ReviewInfo {
-    orderId: number;
-    star: number;
-    comment: string;
-    pictureUrl: {
-      fileName: string;
-      type: string;
-      uri: string;
-      height: number;
-      fileSize: number;
-    };
-  }
-  
-   const initialReviewInfo: ReviewInfo = {
-    orderId: 0,
-    star: 0,
-    comment: '',
-    pictureUrl: {
-      fileName: '',
-      type: '',
-      uri: '',
-      height: 0,
-      fileSize: 0,
-    },
-  };
-
+import Btn from '../../../components/Btn';
+import { ReviewWriteReq } from '../../../api/types';
 let FormData = require('form-data');
+import { goTakePhoto, goGallery } from '../order/OrderFilter';
 
-const width = Dimensions.get('window').width;
-
-const ReviewPage : React.FC<PropsWithChildren<OrderMainNavProps<'ReviewWrite'>>> = ({  navigation, route }) => {
-  const [inputReview, setInputReview] = useState<string>('');
+const ReviewPage: React.FC<PropsWithChildren<OrderMainNavProps<'ReviewWrite'>>> = ({ navigation, route }) => {
   const [photo, setPhoto] = useState<any>('');
-  const [request, setRequest] = useState<ReviewInfo>(initialReviewInfo);
+  const [request, setRequest] = useState<ReviewWriteReq>({ orderNo: '', star: 0, comment: '', images: [] });
   const [modalVisible, setModalVisible] = useState(false);
-
-  // customHook => 첫 렌더링때도 state가 설정되는 것으로 보고 useEffect가 실행하는것 방지
-  // useDidMountEffect(() => {
-  //   console.log(request);
-  // }, isClicked);
-
-  useEffect(() => {
-    console.log(route.params);
-  }, []);
 
   const selectPhoto = () => {
     setModalVisible(true);
   };
   const saveReview = async () => {
-    // const accessToken = await getAccessToken('accessToken');
-    // const headers = {Authorization: accessToken ? 'Bearer ' + accessToken : ''};
-     const headers = {Authorization: 1 ? 'Bearer ' + 1 : ''};
+    if (request === undefined) return '';
+    const headers = { Authorization: 1 ? 'Bearer ' + 1 : '' };
 
-    await ImageResizer.createResizedImage(request.pictureUrl.uri, 240, 240, 'JPEG', 50, 0).then(response => {
-      console.log('response', response);
+    await ImageResizer.createResizedImage(request.images[0], 240, 240, 'JPEG', 50, 0).then(response => {
       //formData
       const formData: FormData = new FormData();
 
@@ -108,7 +53,7 @@ const ReviewPage : React.FC<PropsWithChildren<OrderMainNavProps<'ReviewWrite'>>>
       };
 
       axios
-        .post('https://0giri.com/api/reviews', data, {headers: headers})
+        .post('https://0giri.com/api/reviews', data, { headers: headers })
         .then(res => {
           const presignedUrl = res.data[0].preSignedUrl;
           console.log(presignedUrl);
@@ -122,16 +67,26 @@ const ReviewPage : React.FC<PropsWithChildren<OrderMainNavProps<'ReviewWrite'>>>
 
   const uploadImageToS3 = (url: string, formData: FormData) => {
     // const header = {headers : { 'Content-type':'multipart/form-data'}};
-
-    console.log('url', url, '\nfile', formData);
-
     axios
       .put(url, formData)
       .then(res => console.log(res))
       .catch(err => console.log('second', err));
   };
 
-  const goTakePhoto = async () => {
+  const goTakePhoto3 = async () => {
+    const result = goTakePhoto()
+
+    console.log(result);
+
+    // setPhoto('file://' + result.uriPath);
+    // setRequest(current => {
+    //   let newCondition = { ...current };
+    //   newCondition.images = result.assets[0];
+    //   return newCondition;
+    // });
+  }
+
+  const goTakePhoto2 = async () => {
     try {
       //카메라 권한체크
       const granted = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.CAMERA);
@@ -150,11 +105,11 @@ const ReviewPage : React.FC<PropsWithChildren<OrderMainNavProps<'ReviewWrite'>>>
         const uriPath = localUri.split('//').pop();
         // const imageName = localUri.split("/").pop();
         setPhoto('file://' + uriPath);
-        // setRequest(current => {
-        //   let newCondition = {...current};
-        //   newCondition.pictureUrl = result.assets[0];
-        //   return newCondition;
-        // });
+        setRequest(current => {
+          let newCondition = { ...current };
+          newCondition.images = result.assets[0];
+          return newCondition;
+        });
       }
       //denied시
       else {
@@ -176,18 +131,17 @@ const ReviewPage : React.FC<PropsWithChildren<OrderMainNavProps<'ReviewWrite'>>>
           maxHeight: 200,
           maxWidth: 200,
         });
-        if (result.didCancel) {
-          return null;
-        }
+        if (result.didCancel) return null;
+
         const localUri = result.assets[0].uri;
         const uriPath = localUri.split('//').pop();
         // const imageName = localUri.split("/").pop();
         setPhoto('file://' + uriPath);
-        // setRequest(current => {
-        //   let newCondition = {...current};
-        //   newCondition.pictureUrl = result.assets[0];
-        //   return newCondition;
-        // });
+        setRequest(current => {
+          let newCondition = { ...current };
+          newCondition.images = result.assets[0];
+          return newCondition;
+        });
       }
       //denied 시
       else {
@@ -214,19 +168,19 @@ const ReviewPage : React.FC<PropsWithChildren<OrderMainNavProps<'ReviewWrite'>>>
         </View>
       </View>
       <Text className='font-suit-500 text-[14px] text-[#111111] mt-[20px]'>리뷰를 작성해주세요👩🏻‍💻</Text>
-      <View style={{marginTop: 10}}>
+      <View style={{ marginTop: 10 }}>
         <Stars
           default={0}
           count={5}
           starSize={50}
           className='border1 bg-[#F3F3F3] h-[100px]'
-          // update={(val: number) =>
-          //   setRequest(current => {
-          //     let newCondition = {...current};
-          //     newCondition.star = val;
-          //     return newCondition;
-          //   })
-          // }
+          update={(val: number) =>
+            setRequest(current => {
+              let newCondition = { ...current };
+              newCondition.star = val;
+              return newCondition;
+            })}
+
           fullStar={<Text className='text-[#00C1DE] text-[30px]'>★</Text>}
           emptyStar={<Text className='text-[#00C1DE] text-[30px]'>☆</Text>}
         />
@@ -237,14 +191,14 @@ const ReviewPage : React.FC<PropsWithChildren<OrderMainNavProps<'ReviewWrite'>>>
         numberOfLines={10}
         blurOnSubmit={false}
         className='font-suit-500 bg-[#F3F3F3] rounded-lg mt-[10px] mb-[10px]'
-      //   onChangeText={(val: string) =>
-      //     setRequest(current => {
-      //       let newCondition = {...current};
-      //       newCondition.comment = val;
-      //       return newCondition;
-      //     })
-      //   }
-        style={{textAlignVertical:'top'}}
+        //   onChangeText={(val: string) =>
+        //     setRequest(current => {
+        //       let newCondition = {...current};
+        //       newCondition.comment = val;
+        //       return newCondition;
+        //     })
+        //   }
+        style={{ textAlignVertical: 'top' }}
         placeholder="리뷰작성"
         placeholderTextColor="grey"
         underlineColorAndroid="transparent"
@@ -255,7 +209,7 @@ const ReviewPage : React.FC<PropsWithChildren<OrderMainNavProps<'ReviewWrite'>>>
 
       <TouchableOpacity onPress={selectPhoto}>
         <Image
-          source={{uri: photo ? photo : null}}
+          source={{ uri: photo ? photo : null }}
           style={{
             justifyContent: 'center',
             alignItems: 'center',
@@ -268,119 +222,21 @@ const ReviewPage : React.FC<PropsWithChildren<OrderMainNavProps<'ReviewWrite'>>>
         />
       </TouchableOpacity>
 
-      <TouchableOpacity style={ReviewWrapper.SubmitButton} onPress={saveReview}>
-        <Text style={ReviewWrapper.SubmitButtonText}>리뷰 등록하기</Text>
-      </TouchableOpacity>
-    <BottomSheet
-      style={ReviewWrapper.rootContainer}
-      modalVisible={modalVisible}
-      goTakePhoto={goTakePhoto}
-      goGallery={goGallery}
-      setModalVisible={setModalVisible}
-    />
+      <Btn
+        title="포장받기 완료"
+        onPress={() => saveReview}
+        className={`py-[14px] bg-[#00C1DE] w-5/6`}
+        fontSize={16}
+      />
+      <BottomSheet
+        clssName='justify-center items-center flex-1'
+        modalVisible={modalVisible}
+        goTakePhoto={goTakePhoto3}
+        goGallery={goGallery}
+        setModalVisible={setModalVisible}
+      />
     </Fragment>
   );
 };
-export const ReviewWrapper = StyleSheet.create({
-  Container: {
-    flex: 1,
-    backgroundColor: 'white',
-    marginTop: 20,
-  },
-  TextArea: {
-    width: width * 0.9,
-    height: width * 0.45,
-    backgroundColor: '#F3F3F3',
-    borderRadius: 10,
-    textAlignVertical: 'top',
-    margin: 10,
-    borderColor: 'rgba(124, 0, 0, 0.05)',
-    borderWidth: 1,
-  },
-  CenterAlign: {
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  ContentsBox: {
-    borderBottomWidth: 0.4,
-    width: width * 0.9,
-    marginTop: 20,
-    sborderRadius: 1,
-    paddingLeft: 26,
-    paddingRight: 26,
-    borderColor: '#A2A2A2',
-    backgroundColor: 'white',
-  },
-  Horizontal: {
-    flexDirection: 'column',
-  },
-  Vertical: {
-    flexDirection: 'row',
-  },
-  AddPhotoButton: {
-    width: width * 0.9,
-    backgroundColor: '#FFFFFF',
-    borderWidth: 1.2,
-    borderStyle: 'solid',
-    borderColor: '#00C1DE',
-    borderRadius: 12,
-    height: 40,
-    justifyContent: 'center',
-    alignContent: 'center',
-  },
-  SubmitButton: {
-    width: width * 0.9,
-    backgroundColor: '#00C1DE',
-    borderRadius: 12,
-    height: 54,
-    justifyContent: 'center',
-    alignContent: 'center',
-  },
-  InActivateButton: {
-    backgroundColor: '#3E3E3E',
-    borderRadius: 10,
-    height: 40,
-    justifyContent: 'center',
-    alignContent: 'center',
-  },
-  AddPhotoButtonText: {
-    fontSize: 13,
-    fontFamily: 'Apple SD Gothic Neo',
-    fontStyle: 'normal',
-    fontWeight: '600',
-    color: '#00C1DE',
-    alignSelf: 'center',
-    alignItems: 'center',
-    textAlign: 'center',
-    justifyContent: 'center',
-    alignContent: 'center',
-  },
-  SubmitButtonText: {
-    fontSize: 20,
-    fontFamily: 'Urbanist',
-    fontStyle: 'normal',
-    fontWeight: 'bold',
-    color: '#FFFFFF',
-    alignSelf: 'center',
-    alignItems: 'center',
-    textAlign: 'center',
-    justifyContent: 'center',
-    alignContent: 'center',
-  },
-  FontText: {
-    fontFamily: 'Apple SD Gothic Neo',
-    fontStyle: 'normal',
-    letterSpacing: 0.5,
-    color: 'black',
-    fontWeight: '500',
-    marginTop: 10,
-    fontSize: 14,
-  },
-  rootContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});
 
 export default ReviewPage;
