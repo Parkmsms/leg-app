@@ -83,7 +83,7 @@ const SuccessList: React.FC<PropsWithChildren<OrderNavProps<'CompleteList'>>> = 
                         {order.status === "USER_CANCEL" && (
                           <>
                             <Text className="font-suit-700 text-[15px] text-[#101010]">
-                            주문 취소d
+                            주문 취소
                             </Text>
                           </>
                         )}
