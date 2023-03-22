@@ -7,8 +7,8 @@ import { OrderListResp } from '../../../../api/types';
 import { dateFilter } from '../OrderFilter';
 import { OrderNavProps } from '../../../../navigators';
 import { useTiemStore } from '../../../../store';
-import OrderConfirmPopUp from '../orderModal/OrderConfirmPopUp';
-import OrderAlertPopup from '../orderModal/OrderAlertPopUp';
+import OrderConfirmPopUp from '../orderModal/ConfirmModal';
+import OrderAlertPopup from '../orderModal/AlertModal';
 import { useIsFocused } from '@react-navigation/native';
 
 const ProcessList: React.FC<PropsWithChildren<OrderNavProps<'ProcessList'>>> = ({ navigation, route }) => {
@@ -69,7 +69,7 @@ const ProcessList: React.FC<PropsWithChildren<OrderNavProps<'ProcessList'>>> = (
     //   <Text>{}</Text>
     // </Fragment>
     <Fragment className="flex-1 px-5 bg-[#F8F8F8]">
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         {orders.content?.map((order: OrderListResp, index: number) => {
           return (
             <SafeAreaView className="flex-1" key={index}>
@@ -112,10 +112,10 @@ const ProcessList: React.FC<PropsWithChildren<OrderNavProps<'ProcessList'>>> = (
                     {order.status === "REQUEST" &&
                       <>
                         <TouchableOpacity onPress={() => openModal(order.orderNo)} className='flex-1 w-20 border-[1px] rounded-lg border-rose-500 bg-[#FFFFFF] '>
-                          <Text className="font-suit-700 text-center text-[15px] text-[#F43F5E] m-[8px]">주문 취소</Text>
+                          <Text className="font-suit-700 text-center text-[13px] text-[#F43F5E] m-[10px]">주문 취소</Text>
                         </TouchableOpacity>
                         <TouchableOpacity className='flex-1  ml-[10px] border-[1px #00C1DE] rounded-lg bg-[#00C1DE] '>
-                          <Text className="font-suit-700 text-center text-[15px] text-[#FFFFFF] m-[8px]">주문 상세</Text>
+                          <Text className="font-suit-700 text-center text-[13px] text-[#FFFFFF] m-[10px]">주문 상세</Text>
                         </TouchableOpacity>
                       </>
                     }
@@ -127,10 +127,10 @@ const ProcessList: React.FC<PropsWithChildren<OrderNavProps<'ProcessList'>>> = (
                             navigation.navigate('OrderStatus')
                           }}
                           className='flex-1 border-[1px #00C1DE] rounded-lg bg-[#00C1DE] '>
-                          <Text className="font-suit-700 text-center text-[15px] text-[#FFFFFF] m-[8px]">주문 현황</Text>
+                          <Text className="font-suit-700 text-center text-[13px] text-[#FFFFFF] m-[10px]">주문 현황</Text>
                         </TouchableOpacity>
                         <TouchableOpacity className='flex-1  ml-[10px] border-[1px #00C1DE] rounded-lg bg-[#00C1DE] '>
-                          <Text className="font-suit-700 text-center text-[15px] text-[#FFFFFF] m-[8px]">주문 상세</Text>
+                          <Text className="font-suit-700 text-center text-[13px] text-[#FFFFFF] m-[10px]">주문 상세</Text>
                         </TouchableOpacity>
                       </>
                     }

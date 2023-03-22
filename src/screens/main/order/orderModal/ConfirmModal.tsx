@@ -34,6 +34,8 @@ const OrderConfirmPopUp = (props: BottomPopupProps) => {
       case '주소 변경':
         props.chgLocationing();
         break;
+      case '선택한 주문내역을 삭제하시겠습니까?':
+        props.openCancle();
     }
   };
 
@@ -47,8 +49,8 @@ const OrderConfirmPopUp = (props: BottomPopupProps) => {
           </View>
           {/* Text Area */}
           <View className={`w-5/6 bg-[#FFFFFF] rounded-lg p-10 items-center space-y-4`}>
-            <Text className='font-suit-700 text-[#000000] text-[19px]'>{title}</Text>
-            <Text className='font-suit-300 text-[#000000] text-[14px]'>{subTitle}</Text>
+            <Text className='font-suit-700 text-[#000000] text-[15px]'>{title}</Text>
+            <Text className='font-suit-300 text-[#000000] text-[11px]'>{subTitle}</Text>
             <TouchableOpacity className='w-5/6 p-2 bg-[#00C1DE] rounded-lg items-center content-center justify-around' onPress={pressAccept}>
               <Text className='font-suit-700 text-[#FFFFFF] text-[16px]'>예</Text>
             </TouchableOpacity>

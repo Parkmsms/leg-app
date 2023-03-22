@@ -12,7 +12,7 @@ import {
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 // import { SaveReviewAPI, getAccessToken } from "../../config/AxiosFunction";
 import Stars from 'react-native-stars';
-import BottomSheet from '../order/orderModal/BottomSheet'
+import BottomSheet from '../order/orderModal/PictureModal'
 //MIT Lisense from https://www.npmjs.com/package/react-native-image-resizer
 import ImageResizer from 'react-native-image-resizer';
 import axios from 'axios';
@@ -20,7 +20,6 @@ import Fragment from '../../../components/Fragment';
 import Btn from '../../../components/Btn';
 import { ReviewWriteReq } from '../../../api/types';
 let FormData = require('form-data');
-import { goTakePhoto, goGallery } from '../order/OrderFilter';
 
 const ReviewPage: React.FC<PropsWithChildren<OrderMainNavProps<'ReviewWrite'>>> = ({ navigation, route }) => {
   const [photo, setPhoto] = useState<any>('');
@@ -73,20 +72,8 @@ const ReviewPage: React.FC<PropsWithChildren<OrderMainNavProps<'ReviewWrite'>>> 
       .catch(err => console.log('second', err));
   };
 
-  const goTakePhoto3 = async () => {
-    const result = goTakePhoto()
 
-    console.log(result);
-
-    // setPhoto('file://' + result.uriPath);
-    // setRequest(current => {
-    //   let newCondition = { ...current };
-    //   newCondition.images = result.assets[0];
-    //   return newCondition;
-    // });
-  }
-
-  const goTakePhoto2 = async () => {
+  const goTakePhoto = async () => {
     try {
       //카메라 권한체크
       const granted = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.CAMERA);
@@ -153,8 +140,8 @@ const ReviewPage: React.FC<PropsWithChildren<OrderMainNavProps<'ReviewWrite'>>> 
   };
 
   return (
-    <Fragment className='flex-1 bg-[#FFFFFF] items-center'>
-      <View className='flex-row justify-center mt-[20px]'>
+    <Fragment className='flex-1 px-5 bg-[#FFFFFF] '>
+      <View className='flex-row justify-center pt-[10px]'>
         <View className='justify-center items-center'>
           <Image
             source={require('../../../assets/images/auth-home-img.png')}
@@ -167,12 +154,11 @@ const ReviewPage: React.FC<PropsWithChildren<OrderMainNavProps<'ReviewWrite'>>> 
           <Text className='font-suit-500 text-[14px] text-[#8F8F8F]'>미쁘동 / 일회용품 선택 O</Text>
         </View>
       </View>
-      <Text className='font-suit-500 text-[14px] text-[#111111] mt-[20px]'>리뷰를 작성해주세요👩🏻‍💻</Text>
+      <Text className='font-suit-500 text-[12px] text-[#111111] mt-[20px]'>리뷰를 작성해주세요👩🏻‍💻</Text>
       <View style={{ marginTop: 10 }}>
         <Stars
           default={0}
           count={5}
-          starSize={50}
           className='border1 bg-[#F3F3F3] h-[100px]'
           update={(val: number) =>
             setRequest(current => {
@@ -181,8 +167,8 @@ const ReviewPage: React.FC<PropsWithChildren<OrderMainNavProps<'ReviewWrite'>>> 
               return newCondition;
             })}
 
-          fullStar={<Text className='text-[#00C1DE] text-[30px]'>★</Text>}
-          emptyStar={<Text className='text-[#00C1DE] text-[30px]'>☆</Text>}
+          fullStar={<Text className='text-[#00C1DE] text-[15px]'>★</Text>}
+          emptyStar={<Text className='text-[#00C1DE] text-[15px]'>☆</Text>}
         />
       </View>
 
@@ -203,19 +189,19 @@ const ReviewPage: React.FC<PropsWithChildren<OrderMainNavProps<'ReviewWrite'>>> 
         placeholderTextColor="grey"
         underlineColorAndroid="transparent"
       />
-      <TouchableOpacity className='border-[1px] border-[#00C1DE] rounded-lg bg-[#FFFFFF]' onPress={selectPhoto}>
-        <Text className='font-suit-700 text-center text-[15px] text-[#00C1DE] m-[8px]'>사진 첨부하기</Text>
+      <TouchableOpacity className='border-[0.5px] border-[#00C1DE] rounded-lg bg-[#FFFFFF]' onPress={selectPhoto}>
+        <Text className='font-suit-700 text-center text-[14px] text-[#00C1DE] py-[13px]'>사진 첨부하기</Text>
       </TouchableOpacity>
 
       <TouchableOpacity onPress={selectPhoto}>
         <Image
-          source={{ uri: photo ? photo : null }}
+          source={photo ? {uri:photo}:{}}
           style={{
             justifyContent: 'center',
             alignItems: 'center',
             borderRadius: 5,
             width: 110,
-            height: 90,
+            height: 10,
             margin: 10,
           }}
           resizeMode="stretch"
@@ -225,13 +211,13 @@ const ReviewPage: React.FC<PropsWithChildren<OrderMainNavProps<'ReviewWrite'>>> 
       <Btn
         title="포장받기 완료"
         onPress={() => saveReview}
-        className={`py-[14px] bg-[#00C1DE] w-5/6`}
+        className={`py-[14px] bg-[#00C1DE]`}
         fontSize={16}
       />
       <BottomSheet
         clssName='justify-center items-center flex-1'
         modalVisible={modalVisible}
-        goTakePhoto={goTakePhoto3}
+        goTakePhoto={goTakePhoto}
         goGallery={goGallery}
         setModalVisible={setModalVisible}
       />

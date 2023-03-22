@@ -32,7 +32,7 @@ const OrderAlertPopup = (props: BottomPopupProps) => {
             <Text className='font-suit-700 text-[#00C1DE] text-[16px]'>💬</Text>
           </View>
           <View className={`w-5/6 bg-[#FFFFFF] rounded-lg p-10 items-center space-y-4`}>
-            <Text className='font-suit-700 text-[#000000] text-[19px]'>{title}</Text>
+            <Text className='font-suit-700 text-[#000000] text-[15px]'>{title}</Text>
             <TouchableOpacity className='w-5/6 p-2 bg-[#00C1DE] rounded-lg items-center content-center justify-around' onPress={pressAccept}>
               <Text className='font-suit-700 text-[#FFFFFF] text-[16px]'>확인</Text>
             </TouchableOpacity>

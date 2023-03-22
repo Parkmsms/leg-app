@@ -8,8 +8,8 @@ import Geolocation from 'react-native-geolocation-service';
 import { useGetBetweenDistance } from '../../../api/store/store';
 import Btn from '../../../components/Btn';
 import { useTiemStore } from '../../../store';
-import OrderConfirmPopUp from './orderModal/OrderConfirmPopUp';
-import OrderResultPopUp from './orderModal/OrderResultPopUp';
+import OrderConfirmPopUp from './orderModal/ConfirmModal';
+import OrderResultPopUp from './orderModal/ResultModal';
 import CountDownPage from './CountDownPage';
 
 
